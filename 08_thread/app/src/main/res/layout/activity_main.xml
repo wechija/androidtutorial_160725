@@ -10,7 +10,17 @@
     tools:context="com.example.a.a08_thread.MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progress="100"
+        android:max="100"
+        android:id="@+id/progressBar"
+        android:layout_below="@id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
