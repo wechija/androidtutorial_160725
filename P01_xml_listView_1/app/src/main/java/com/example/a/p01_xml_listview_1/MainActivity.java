@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,8 +23,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<MyData> list = new ArrayList<MyData>();
-    public MyAdapter adapter= null;
+    ArrayList<String> list = new ArrayList<String>();
+    public ArrayAdapter<String> adapter = null;
     class MyDomParser extends AsyncTask<String,Void,Document>{
 
 
@@ -38,19 +39,14 @@ public class MainActivity extends AppCompatActivity {
                     String strHour = getText(data,"hour");
                     String strDay = getText(data,"day");
                     String strTemp = getText(data,"temp");
-                    String strwdKor =getText(data,"wfKor");
+                    String strwdKor =getText(data,"wdKor");
                     str = strHour+"::"+strDay+"::"+strTemp+"::"+strwdKor+"\n";
-                    if(strwdKor.trim().equals("구름많음")){
-                        list.add(new MyData(R.drawable.cloud,str));
-                    }else if(strwdKor.trim().equals("비")){
-                        list.add(new MyData(R.drawable.rain,str));
-                    }else if(strwdKor.trim().equals("흐림")){
-                        list.add(new MyData(R.drawable.cloud1,str));
-                    }
+                    list.add(str);
+
                 }
             }catch(Exception ex){
                 ex.printStackTrace();
-                list.add(new MyData(R.drawable.rain,"test"));
+                list.add("test");
             }
 
             adapter.notifyDataSetChanged();
@@ -114,13 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inf = getLayoutInflater();
                 view = inf.inflate(R.layout.item_view,null);
             }
-            MyData data = list.get(i);
+            String data = list.get(i);
             TextView itemTitle = (TextView)view.findViewById(R.id.weather);
-            ImageView itemImg = (ImageView)view.findViewById(R.id.itemImg);
 
-            itemTitle.setText(data.strTitle);
-            itemImg.setImageResource(data.imgId);
-              return view;
+            itemTitle.setText(data);
+             return view;
         }
     }
 
@@ -132,12 +126,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listView);
-        adapter = new MyAdapter();
+        adapter = new ArrayAdapter<String>(
+                MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                list
+        );
         listView.setAdapter(adapter);
         MyDomParser task = new MyDomParser();
         task.execute("http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=1153052000");
 
-       /* ImageView iv = (ImageView) findViewById(R.id.testImgView);
-        iv.setImageResource(R.drawable.rain);*/
+        ImageView iv = (ImageView) findViewById(R.id.testImgView);
+        iv.setImageResource(R.drawable.rain);
     }
 }
