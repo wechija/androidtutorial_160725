@@ -17,6 +17,8 @@
         android:text="Hello World!" />
 
     <ImageView
+        android:scaleType="center"
+        android:src="@drawable/desert"
         android:id="@+id/imageView"
         android:layout_below="@id/btn"
         android:layout_width="match_parent"
