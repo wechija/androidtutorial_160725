@@ -9,8 +9,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.a.p03_gps.MainActivity">
 
+    <Button
+        android:onClick="onBtnClear"
+        android:id="@+id/btnClear"
+        android:text="초기화"
+        android:layout_width="150dp"
+        android:layout_height="50dp" />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@id/btnClear"
+        android:id="@+id/textCnt"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="" />
+    <TextView
+        android:layout_below="@id/textCnt"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:text="" />
+
 </RelativeLayout>
